@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>EGESP - Central SSC | TV Corredor + Repositório</title>
+    <title>EGESP - Central SSC | Listas + TV + Repositório</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -101,6 +101,15 @@
             background: rgba(46,204,113,0.25);
         }
         
+        .system-item.listas {
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 3px solid #3498db;
+        }
+        
+        .system-item.listas:hover {
+            background: rgba(52,152,219,0.25);
+        }
+        
         .system-icon {
             font-size: 1.8rem;
             margin-bottom: 10px;
@@ -147,6 +156,11 @@
         
         .status-repo {
             background: #2ecc71;
+            color: white;
+        }
+        
+        .status-listas {
+            background: #3498db;
             color: white;
         }
         
@@ -393,15 +407,18 @@
                 </span>
             </div>
             
-            <!-- Listas de presença -->
-            <div class="system-item" data-url="#" data-title="Listas de presença" data-type="development">
+            <!-- LISTAS DE PRESENÇA - SharePoint Cursos e Eventos -->
+            <div class="system-item listas" data-url="https://fazendaspgovbr.sharepoint.com/sites/Egesp/Cursos%20e%20Eventos/Forms/AllItems.aspx?npsAction=createList&ovuser=ccb3a8f5%2D7e40%2D4e20%2D9b73%2D2a6bd0be61a4%2Cghpmacedo%40fazenda%2Esp%2Egov%2Ebr" data-title="Listas de presença - Cursos e Eventos" data-type="blocked-iframe">
                 <div class="system-icon">
                     <i class="fas fa-users"></i>
                 </div>
                 <h3>📋 Listas de presença</h3>
-                <p>Em desenvolvimento - Gestão de frequência e colaboradores</p>
-                <span class="system-status status-development">
-                    <i class="fas fa-code"></i> Em desenvolvimento
+                <p>Acesso às listas de presença de cursos e eventos EGESP</p>
+                <span class="system-status status-listas">
+                    <i class="fas fa-external-link-alt"></i> Abrir em nova aba
+                </span>
+                <span class="badge-external">
+                    <i class="fas fa-sharepoint"></i> SharePoint
                 </span>
             </div>
             
@@ -474,7 +491,7 @@
         
         <div class="sidebar-footer">
             <i class="fas fa-code"></i> Desenvolvido por Gustavo Hugo<br>
-            <span style="font-size: 0.65rem;">Versão 2.2 - Repositório de Gravações adicionado | Aceito Sugestões ❤️</span>
+            <span style="font-size: 0.65rem;">Versão 2.3 - Listas de presença integrada | Aceito Sugestões ❤️</span>
         </div>
     </div>
     
@@ -519,7 +536,7 @@
     const iframeWrapper = document.getElementById('iframeWrapper');
     const infoMessage = document.getElementById('infoMessage');
     
-    // Função para mostrar a mensagem de boas-vindas original (sem menção a TV ou repositório)
+    // Função para mostrar a mensagem de boas-vindas original
     function showWelcomeMessage() {
         infoMessage.style.display = 'flex';
         systemFrame.style.display = 'none';
@@ -568,9 +585,7 @@
         currentSystemTitle.innerHTML = `<i class="fas fa-code"></i> ${title} (Em desenvolvimento)`;
         
         let customMessage = '';
-        if (title === 'Listas de presença') {
-            customMessage = 'O módulo de Listas de Presença está em fase de construção. Em breve você poderá gerenciar frequência, registrar pontos e acompanhar colaboradores de forma integrada.';
-        } else if (title === 'Sistema Financeiro') {
+        if (title === 'Sistema Financeiro') {
             customMessage = 'Sistema Financeiro em desenvolvimento: em breve teremos dashboards de controle orçamentário, gestão de despesas e relatórios gerenciais.';
         } else if (title === 'Sistema de Chamados') {
             customMessage = 'A Central de Chamados está sendo desenvolvida para oferecer abertura e acompanhamento de solicitações de TI, manutenção e serviços internos.';
@@ -597,18 +612,19 @@
         
         let icon = 'fa-external-link-alt';
         let iconColor = '#667eea';
-        let platformName = 'site';
         let customMessage = '';
         
         if (type === 'tv') {
             icon = 'fa-tv';
             iconColor = '#ff9800';
-            platformName = 'Canva';
             customMessage = 'O Canva não permite ser exibido dentro de uma página por questões de segurança (X-Frame-Options).';
         } else if (type === 'repo') {
             icon = 'fa-video';
             iconColor = '#2ecc71';
-            platformName = 'SharePoint';
+            customMessage = 'O SharePoint da Microsoft não permite ser exibido dentro de iframes por questões de segurança.';
+        } else if (type === 'listas') {
+            icon = 'fa-users';
+            iconColor = '#3498db';
             customMessage = 'O SharePoint da Microsoft não permite ser exibido dentro de iframes por questões de segurança.';
         }
         
@@ -715,7 +731,13 @@
             return;
         }
         
-        // Caso 5: Iframe normal (Inventário)
+        // Caso 5: Listas de presença (iframe bloqueado pelo SharePoint)
+        if (element.classList.contains('listas') || title === 'Listas de presença - Cursos e Eventos') {
+            showBlockedMessageAndOpen(url, title, 'listas');
+            return;
+        }
+        
+        // Caso 6: Iframe normal (Inventário)
         if (type === 'iframe' && url && url !== '#') {
             loadIframeSystem(url, title, element);
             return;
@@ -778,7 +800,7 @@
         }
     });
     
-    console.log('✅ Central EGESP carregada - TV Corredor e Repositório de Gravações adicionados!');
+    console.log('✅ Central EGESP carregada - Listas de presença, TV Corredor e Repositório integrados!');
 </script>
 </body>
 </html>
