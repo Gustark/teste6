@@ -28,7 +28,6 @@
             background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.05) 100%);
         }
         
-        /* SIDEBAR - Efeito Glassmorphism */
         .sidebar {
             width: 32%;
             background: rgba(255, 255, 255, 0.97);
@@ -201,7 +200,6 @@
             color: #475569;
         }
         
-        /* ÁREA DE CONTEÚDO */
         .content-area {
             width: 68%;
             display: flex;
@@ -401,172 +399,6 @@
             border-radius: 28px 28px 32px 32px;
         }
         
-        /* Notas Adesivas - Versão local (caso queira usar sem Google Scripts) */
-        .sticky-notes-demo {
-            padding: 24px;
-            background: #fefce8;
-            min-height: 100%;
-        }
-        
-        .notes-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        
-        .notes-header h3 {
-            font-size: 1.2rem;
-            color: #854d0e;
-        }
-        
-        .add-note-btn {
-            background: linear-gradient(135deg, #eab308, #ca8a04);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-        
-        .add-note-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.4);
-        }
-        
-        .notes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .note-card {
-            background: #fffbeb;
-            border-radius: 16px;
-            padding: 18px;
-            border-left: 6px solid #eab308;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: all 0.2s;
-            position: relative;
-        }
-        
-        .note-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .note-title {
-            font-weight: 700;
-            font-size: 1rem;
-            color: #78350f;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .note-content {
-            font-size: 0.85rem;
-            color: #92400e;
-            line-height: 1.5;
-            margin-bottom: 12px;
-            word-wrap: break-word;
-        }
-        
-        .note-date {
-            font-size: 0.65rem;
-            color: #b45309;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .delete-note {
-            background: none;
-            border: none;
-            color: #dc2626;
-            cursor: pointer;
-            font-size: 0.9rem;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-        }
-        
-        .delete-note:hover {
-            opacity: 1;
-        }
-        
-        .empty-notes {
-            text-align: center;
-            padding: 48px;
-            color: #94a3b8;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 24px;
-            padding: 28px;
-            width: 90%;
-            max-width: 400px;
-        }
-        
-        .modal-content h4 {
-            margin-bottom: 20px;
-            color: #0f172a;
-        }
-        
-        .modal-content input, .modal-content textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            font-family: inherit;
-        }
-        
-        .modal-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-        }
-        
-        .scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .sidebar::-webkit-scrollbar-track {
-            background: #e2e8f0;
-            border-radius: 10px;
-        }
-        
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #94a3b8;
-            border-radius: 10px;
-        }
-        
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
@@ -596,6 +428,14 @@
         </div>
         
         <div class="systems-list">
+            <!-- PRIMEIRA OPÇÃO: AVISOS E NOTAS - Google Scripts -->
+            <div class="system-item notices" data-url="https://script.google.com/macros/s/AKfycbwuBhuptv-k3s7_9GzktsKJiuIg1LU375y-A_k91-GUn0AnaZlLmS2X4BzbqqHQSxagyw/exec" data-title="Avisos e Notas - Mural EGESP" data-type="iframe">
+                <div class="system-icon"><i class="fas fa-sticky-note"></i></div>
+                <h3>📌 Avisos e Notas</h3>
+                <p>Mural de recados, comunicados e lembretes importantes</p>
+                <span class="system-status status-notices"><i class="fas fa-edit"></i> Notas Autoadesivas</span>
+            </div>
+            
             <!-- Inventário -->
             <div class="system-item" data-url="https://script.google.com/macros/s/AKfycbyz9_SOxtSotlHnN6LB71GPfZtUAhKX0McBbItVAeArhGVxoECTZ0R4Wq6PIjyXnD4xvg/exec" data-title="Inventário EGESP" data-type="iframe">
                 <div class="system-icon"><i class="fas fa-boxes"></i></div>
@@ -636,14 +476,6 @@
                 <span class="system-status status-repo"><i class="fas fa-cloud"></i> SharePoint</span>
             </div>
             
-            <!-- NOVA ABA: AVISOS E NOTAS - Google Scripts / Iframe -->
-            <div class="system-item notices" data-url="https://script.google.com/macros/s/SEU_SCRIPT_AQUI/exec" data-title="Avisos e Notas - Mural EGESP" data-type="notices-iframe" id="noticesSystem">
-                <div class="system-icon"><i class="fas fa-sticky-note"></i></div>
-                <h3>📌 Avisos e Notas</h3>
-                <p>Mural de recados, comunicados e lembretes importantes</p>
-                <span class="system-status status-notices"><i class="fas fa-edit"></i> Notas Autoadesivas</span>
-            </div>
-            
             <!-- Financeiro -->
             <div class="system-item" data-url="#" data-title="Sistema Financeiro" data-type="development">
                 <div class="system-icon"><i class="fas fa-chart-line"></i></div>
@@ -670,8 +502,8 @@
         </div>
         
         <div class="sidebar-footer">
-            <i class="fas fa-code"></i> Desenvolvido por Gustavo Hugo · v3.1<br>
-            <span style="font-size: 0.65rem;">Sistema de Notas integrado | Sugestões: avisos@egesp.sp.gov.br</span>
+            <i class="fas fa-code"></i> Desenvolvido por Gustavo Hugo · v4.0<br>
+            <span style="font-size: 0.65rem;">Sistema de Notas integrado com Google Sheets | Sugestões: avisos@egesp.sp.gov.br</span>
         </div>
     </div>
     
@@ -705,23 +537,9 @@
     </div>
 </div>
 
-<!-- Modal para adicionar notas (apenas para demonstração local) -->
-<div class="modal" id="noteModal">
-    <div class="modal-content">
-        <h4>✏️ Nova Nota</h4>
-        <input type="text" id="noteTitleInput" placeholder="Título da nota" maxlength="50">
-        <textarea id="noteContentInput" rows="4" placeholder="Digite sua nota ou lembrete..."></textarea>
-        <div class="modal-buttons">
-            <button class="btn-external btn-secondary" onclick="closeModal()">Cancelar</button>
-            <button class="btn-external" onclick="addNote()">Salvar Nota</button>
-        </div>
-    </div>
-</div>
-
 <script>
     let currentSystem = null;
     let isFullscreen = false;
-    let notesData = [];
     
     const systemItems = document.querySelectorAll('.system-item');
     const systemFrame = document.getElementById('systemFrame');
@@ -730,140 +548,9 @@
     const iframeWrapper = document.getElementById('iframeWrapper');
     const infoMessage = document.getElementById('infoMessage');
     
-    // URL DO GOOGLE SCRIPT - SUBSTITUA PELO SEU LINK!
-    // Você pode criar um Google Apps Script que retorna um HTML com um sistema de notas
-    // Basta publicar como aplicação web e colocar a URL abaixo
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/SEU_SCRIPT_AQUI/exec";
-    
-    // Versão demonstração local com notas autoadesivas (caso não tenha o Google Script ainda)
-    function loadLocalNotesSystem() {
-        infoMessage.style.display = 'none';
-        systemFrame.style.display = 'none';
-        
-        // Criar container de notas local
-        const notesContainer = document.createElement('div');
-        notesContainer.className = 'sticky-notes-demo';
-        notesContainer.id = 'localNotesContainer';
-        notesContainer.innerHTML = `
-            <div class="notes-header">
-                <h3><i class="fas fa-sticky-note"></i> Mural de Notas EGESP</h3>
-                <button class="add-note-btn" onclick="openNoteModal()">
-                    <i class="fas fa-plus"></i> Nova Nota
-                </button>
-            </div>
-            <div id="notesGrid" class="notes-grid"></div>
-        `;
-        
-        // Remover conteúdo anterior e adicionar
-        iframeWrapper.innerHTML = '';
-        iframeWrapper.appendChild(notesContainer);
-        
-        // Carregar notas salvas localmente
-        loadNotesFromStorage();
-        renderNotes();
-        
-        currentSystemTitle.innerHTML = `<i class="fas fa-sticky-note"></i> Avisos e Notas - Mural EGESP`;
-    }
-    
-    // Funções para notas locais (demonstração)
-    function loadNotesFromStorage() {
-        const saved = localStorage.getItem('egesp_notes');
-        if (saved) {
-            notesData = JSON.parse(saved);
-        } else {
-            // Notas de exemplo
-            notesData = [
-                { id: 1, title: "📢 Reunião de alinhamento", content: "Quinta-feira, 15h, sala de reuniões do 17º andar.", date: new Date().toLocaleDateString() },
-                { id: 2, title: "⚠️ Manutenção programada", content: "Sistema de inventário offline das 22h às 23h59.", date: new Date().toLocaleDateString() },
-                { id: 3, title: "✅ Novo treinamento", content: "Capacitação sobre o novo sistema de chamados - inscreva-se!", date: new Date().toLocaleDateString() }
-            ];
-            saveNotesToStorage();
-        }
-    }
-    
-    function saveNotesToStorage() {
-        localStorage.setItem('egesp_notes', JSON.stringify(notesData));
-    }
-    
-    function renderNotes() {
-        const grid = document.getElementById('notesGrid');
-        if (!grid) return;
-        
-        if (notesData.length === 0) {
-            grid.innerHTML = `<div class="empty-notes"><i class="fas fa-inbox"></i><p>Nenhuma nota ainda. Clique em "Nova Nota" para adicionar!</p></div>`;
-            return;
-        }
-        
-        grid.innerHTML = notesData.map(note => `
-            <div class="note-card">
-                <div class="note-title">
-                    <span>${escapeHtml(note.title)}</span>
-                    <button class="delete-note" onclick="deleteNote(${note.id})"><i class="fas fa-trash-alt"></i></button>
-                </div>
-                <div class="note-content">${escapeHtml(note.content)}</div>
-                <div class="note-date">
-                    <span><i class="far fa-calendar-alt"></i> ${note.date}</span>
-                </div>
-            </div>
-        `).join('');
-    }
-    
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-    
-    window.openNoteModal = function() {
-        document.getElementById('noteModal').classList.add('active');
-        document.getElementById('noteTitleInput').value = '';
-        document.getElementById('noteContentInput').value = '';
-    }
-    
-    window.closeModal = function() {
-        document.getElementById('noteModal').classList.remove('active');
-    }
-    
-    window.addNote = function() {
-        const title = document.getElementById('noteTitleInput').value.trim();
-        const content = document.getElementById('noteContentInput').value.trim();
-        
-        if (!title && !content) {
-            alert('Preencha pelo menos o título ou o conteúdo da nota');
-            return;
-        }
-        
-        const newNote = {
-            id: Date.now(),
-            title: title || "Sem título",
-            content: content || "Sem conteúdo",
-            date: new Date().toLocaleDateString('pt-BR')
-        };
-        
-        notesData.unshift(newNote);
-        saveNotesToStorage();
-        renderNotes();
-        closeModal();
-    }
-    
-    window.deleteNote = function(id) {
-        if (confirm('Excluir esta nota?')) {
-            notesData = notesData.filter(n => n.id !== id);
-            saveNotesToStorage();
-            renderNotes();
-        }
-    }
-    
     function showWelcomeMessage() {
         infoMessage.style.display = 'flex';
         systemFrame.style.display = 'none';
-        // Limpar container local se existir
-        const localContainer = document.getElementById('localNotesContainer');
-        if (localContainer) {
-            iframeWrapper.innerHTML = '';
-            iframeWrapper.appendChild(infoMessage);
-            iframeWrapper.appendChild(systemFrame);
-        }
         systemFrame.src = 'about:blank';
         currentSystemTitle.innerHTML = `<i class="fas fa-microchip"></i> Central de Sistemas`;
         
@@ -950,14 +637,6 @@
         systemItems.forEach(item => item.classList.remove('active'));
         element.classList.add('active');
         
-        // Limpar container local se existir
-        const localContainer = document.getElementById('localNotesContainer');
-        if (localContainer) {
-            iframeWrapper.innerHTML = '';
-            iframeWrapper.appendChild(systemFrame);
-            iframeWrapper.appendChild(loadingOverlay);
-        }
-        
         loadingOverlay.style.display = 'flex';
         systemFrame.style.display = 'block';
         systemFrame.style.opacity = '0';
@@ -974,6 +653,7 @@
             clearTimeout(timeoutId);
             loadingOverlay.style.display = 'none';
             systemFrame.style.opacity = '1';
+            console.log(`✅ Sistema carregado: ${title}`);
         };
         
         systemFrame.onerror = function() {
@@ -983,22 +663,6 @@
         };
         
         currentSystem = { url, title, element, type: 'iframe' };
-    }
-    
-    function loadNoticesSystem(element) {
-        // Tenta carregar o Google Scripts
-        const scriptUrl = element.getAttribute('data-url');
-        
-        // Se ainda não configurou o Google Script, usa a versão local
-        if (scriptUrl === "https://script.google.com/macros/s/SEU_SCRIPT_AQUI/exec" || !scriptUrl) {
-            loadLocalNotesSystem();
-        } else {
-            // Tenta carregar como iframe normal
-            loadIframeSystem(scriptUrl, "Avisos e Notas - Mural EGESP", element);
-        }
-        
-        systemItems.forEach(item => item.classList.remove('active'));
-        element.classList.add('active');
     }
     
     function loadSystem(element) {
@@ -1013,12 +677,6 @@
         
         if (type === 'development' || !url || url === '#') {
             showDevelopmentMessage(title);
-            return;
-        }
-        
-        // Verifica se é o sistema de notas
-        if (element.classList.contains('notices') || title === 'Avisos e Notas - Mural EGESP') {
-            loadNoticesSystem(element);
             return;
         }
         
@@ -1083,13 +741,12 @@
     
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            closeModal();
             showWelcomeMessage();
         }
     });
     
-    console.log('✅ EGESP Central v3.1 - Sistema de Notas Autoadesivas integrado!');
-    console.log('📌 Dica: Para usar com Google Scripts, edite a constante GOOGLE_SCRIPT_URL no código');
+    console.log('✅ EGESP Central v4.0 - Sistema de Notas integrado com Google Sheets!');
+    console.log('📌 URL do Google Script configurada com sucesso!');
 </script>
 </body>
 </html>
