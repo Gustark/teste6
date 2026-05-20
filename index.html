@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>EGESP - Central SSC | Plataforma Corporativa</title>
+    <title>EGESP - Central SSC | Avisos e Notas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -115,13 +115,13 @@
         
         .system-item.active {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            border-left: 4px solid #3b82f6;
-            box-shadow: 0 12px 24px -12px rgba(59, 130, 246, 0.3);
+            border-left: 4px solid #f59e0b;
+            box-shadow: 0 12px 24px -12px rgba(245, 158, 11, 0.3);
         }
         
         .system-item.active::before {
             transform: scaleX(1);
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(90deg, #f59e0b, #eab308);
         }
         
         .system-icon {
@@ -182,6 +182,11 @@
         .status-listas {
             background: #e0f2fe;
             color: #0369a1;
+        }
+        
+        .status-notices {
+            background: #fef3c7;
+            color: #d97706;
         }
         
         .badge-external {
@@ -396,8 +401,159 @@
             border-radius: 28px 28px 32px 32px;
         }
         
-        /* Scrollbar moderna */
-        .sidebar::-webkit-scrollbar {
+        /* Notas Adesivas - Versão local (caso queira usar sem Google Scripts) */
+        .sticky-notes-demo {
+            padding: 24px;
+            background: #fefce8;
+            min-height: 100%;
+        }
+        
+        .notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .notes-header h3 {
+            font-size: 1.2rem;
+            color: #854d0e;
+        }
+        
+        .add-note-btn {
+            background: linear-gradient(135deg, #eab308, #ca8a04);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .add-note-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.4);
+        }
+        
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .note-card {
+            background: #fffbeb;
+            border-radius: 16px;
+            padding: 18px;
+            border-left: 6px solid #eab308;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .note-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .note-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #78350f;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .note-content {
+            font-size: 0.85rem;
+            color: #92400e;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            word-wrap: break-word;
+        }
+        
+        .note-date {
+            font-size: 0.65rem;
+            color: #b45309;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .delete-note {
+            background: none;
+            border: none;
+            color: #dc2626;
+            cursor: pointer;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        
+        .delete-note:hover {
+            opacity: 1;
+        }
+        
+        .empty-notes {
+            text-align: center;
+            padding: 48px;
+            color: #94a3b8;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            width: 90%;
+            max-width: 400px;
+        }
+        
+        .modal-content h4 {
+            margin-bottom: 20px;
+            color: #0f172a;
+        }
+        
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-family: inherit;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+        
+        .scrollbar::-webkit-scrollbar {
             width: 6px;
         }
         
@@ -411,45 +567,20 @@
             border-radius: 10px;
         }
         
-        .sidebar::-webkit-scrollbar-thumb:hover {
-            background: #667eea;
-        }
-        
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
                 padding: 12px;
                 gap: 12px;
             }
-            
             .sidebar {
                 width: 100%;
                 max-height: 45%;
             }
-            
             .content-area {
                 width: 100%;
                 height: 55%;
             }
-            
-            .content-header {
-                padding: 16px 20px;
-            }
-            
-            .info-message {
-                padding: 32px 24px;
-                width: 85%;
-            }
-        }
-        
-        /* Animação de fade */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .system-item {
-            animation: fadeIn 0.4s ease-out forwards;
         }
     </style>
 </head>
@@ -459,112 +590,88 @@
         <div class="sidebar-header">
             <h1>
                 <i class="fas fa-microchip"></i>
-                Central SSC
+                EGESP · SSC
             </h1>
-            <p>Plataforma do SSC com todos os sitemas integrados</p>
+            <p>Plataforma corporativa de sistemas integrados</p>
         </div>
         
-        <div class="systems-list" id="systemsList">
+        <div class="systems-list">
             <!-- Inventário -->
             <div class="system-item" data-url="https://script.google.com/macros/s/AKfycbyz9_SOxtSotlHnN6LB71GPfZtUAhKX0McBbItVAeArhGVxoECTZ0R4Wq6PIjyXnD4xvg/exec" data-title="Inventário EGESP" data-type="iframe">
-                <div class="system-icon">
-                    <i class="fas fa-boxes"></i>
-                </div>
+                <div class="system-icon"><i class="fas fa-boxes"></i></div>
                 <h3>Inventário EGESP</h3>
                 <p>Gestão completa de equipamentos e ativos patrimoniais</p>
-                <span class="system-status status-online">
-                    <i class="fas fa-circle" style="font-size: 0.45rem;"></i> Online
-                </span>
+                <span class="system-status status-online"><i class="fas fa-circle" style="font-size: 0.45rem;"></i> Online</span>
             </div>
             
             <!-- SSC Portal -->
             <div class="system-item external-link" data-url="https://www4.fazenda.sp.gov.br/SistemaEgespLogin/" data-title="Sistema EGESP - SSC" data-type="external">
-                <div class="system-icon">
-                    <i class="fas fa-external-link-alt"></i>
-                </div>
-                <h3>Sistema EGESP</h3>
-                <p>Acesso ao sistema oficial da EGESP</p>
-                <span class="system-status status-external">
-                    <i class="fas fa-external-link-alt"></i> Nova aba
-                </span>
+                <div class="system-icon"><i class="fas fa-external-link-alt"></i></div>
+                <h3>Portal SSC EGESP</h3>
+                <p>Acesso ao sistema oficial da Secretaria da Fazenda</p>
+                <span class="system-status status-external"><i class="fas fa-external-link-alt"></i> Nova aba</span>
             </div>
             
             <!-- Listas de presença -->
             <div class="system-item listas" data-url="https://fazendaspgovbr.sharepoint.com/sites/Egesp/Cursos%20e%20Eventos/Forms/AllItems.aspx?npsAction=createList&ovuser=ccb3a8f5%2D7e40%2D4e20%2D9b73%2D2a6bd0be61a4%2Cghpmacedo%40fazenda%2Esp%2Egov%2Ebr" data-title="Listas de presença - Cursos e Eventos" data-type="blocked-iframe">
-                <div class="system-icon">
-                    <i class="fas fa-clipboard-list"></i>
-                </div>
+                <div class="system-icon"><i class="fas fa-clipboard-list"></i></div>
                 <h3>Listas de Presença</h3>
                 <p>Registro de frequência em cursos, treinamentos e eventos</p>
-                <span class="system-status status-listas">
-                    <i class="fas fa-sharepoint"></i> SharePoint
-                </span>
+                <span class="system-status status-listas"><i class="fas fa-sharepoint"></i> SharePoint</span>
             </div>
             
             <!-- TV Corredor -->
             <div class="system-item tv-hall" data-url="https://canva.link/1ljqzxzw29d0yuh" data-title="TV Corredor - 17º Andar" data-type="blocked-iframe">
-                <div class="system-icon">
-                    <i class="fas fa-tv"></i>
-                </div>
+                <div class="system-icon"><i class="fas fa-tv"></i></div>
                 <h3>TV Corredor · 17º Andar</h3>
                 <p>Edição e programação dos displays digitais do corredor</p>
-                <span class="system-status status-tv">
-                    <i class="fas fa-chalkboard"></i> Mural Digital
-                </span>
+                <span class="system-status status-tv"><i class="fas fa-chalkboard"></i> Mural Digital</span>
             </div>
             
             <!-- Repositório de Gravações -->
             <div class="system-item repo" data-url="https://fazendaspgovbr-my.sharepoint.com/:f:/g/personal/glasdstomas_fazenda_sp_gov_br/IgBMaseL5l6eQKEzNq3ox5UGAYe44BNXOyZ3l5PLTkVFyCk?e=Wh3pqh" data-title="Repositório de Gravações" data-type="blocked-iframe">
-                <div class="system-icon">
-                    <i class="fas fa-video"></i>
-                </div>
+                <div class="system-icon"><i class="fas fa-video"></i></div>
                 <h3>Repositório de Gravações</h3>
                 <p>Acesso às gravações de reuniões, treinamentos e palestras</p>
-                <span class="system-status status-repo">
-                    <i class="fas fa-cloud"></i> SharePoint
-                </span>
+                <span class="system-status status-repo"><i class="fas fa-cloud"></i> SharePoint</span>
+            </div>
+            
+            <!-- NOVA ABA: AVISOS E NOTAS - Google Scripts / Iframe -->
+            <div class="system-item notices" data-url="https://script.google.com/macros/s/SEU_SCRIPT_AQUI/exec" data-title="Avisos e Notas - Mural EGESP" data-type="notices-iframe" id="noticesSystem">
+                <div class="system-icon"><i class="fas fa-sticky-note"></i></div>
+                <h3>📌 Avisos e Notas</h3>
+                <p>Mural de recados, comunicados e lembretes importantes</p>
+                <span class="system-status status-notices"><i class="fas fa-edit"></i> Notas Autoadesivas</span>
             </div>
             
             <!-- Financeiro -->
             <div class="system-item" data-url="#" data-title="Sistema Financeiro" data-type="development">
-                <div class="system-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Em Desenvolvimento</h3>
-                <p>Em Desenvolvimento</p>
-                <span class="system-status status-development">
-                    <i class="fas fa-code"></i> Em desenvolvimento
-                </span>
+                <div class="system-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Financeiro EGESP</h3>
+                <p>Controle orçamentário, despesas e relatórios gerenciais</p>
+                <span class="system-status status-development"><i class="fas fa-code"></i> Em desenvolvimento</span>
             </div>
             
             <!-- Chamados -->
             <div class="system-item" data-url="#" data-title="Sistema de Chamados" data-type="development">
-                <div class="system-icon">
-                    <i class="fas fa-ticket-alt"></i>
-                </div>
-                <h3>Em Desenvolvimento</h3>
-                <p>Em Desenvolvimento</p>
-                <span class="system-status status-development">
-                    <i class="fas fa-code"></i> Em desenvolvimento
-                </span>
+                <div class="system-icon"><i class="fas fa-ticket-alt"></i></div>
+                <h3>Central de Chamados</h3>
+                <p>Abertura e acompanhamento de solicitações de TI e serviços</p>
+                <span class="system-status status-development"><i class="fas fa-code"></i> Em desenvolvimento</span>
             </div>
             
             <!-- Documentos -->
             <div class="system-item" data-url="#" data-title="Gestão Documental" data-type="development">
-                <div class="system-icon">
-                    <i class="fas fa-folder-open"></i>
-                </div>
-                <h3>Em Desenvolvimento</h3>
-                <p>Em Desenvolvimento</p>
-                <span class="system-status status-development">
-                    <i class="fas fa-code"></i> Em desenvolvimento
-                </span>
+                <div class="system-icon"><i class="fas fa-folder-open"></i></div>
+                <h3>Gestão Documental</h3>
+                <p>Arquivo digital de contratos, memorandos e documentos oficiais</p>
+                <span class="system-status status-development"><i class="fas fa-code"></i> Em desenvolvimento</span>
             </div>
         </div>
         
         <div class="sidebar-footer">
-            <i class="fas fa-code"></i> Desenvolvido por Gustavo Hugo · v3.0<br>
-            <span style="font-size: 0.65rem; opacity: 0.7;">Plataforma corporativa · Sugestões são bem-vindas</span>
+            <i class="fas fa-code"></i> Desenvolvido por Gustavo Hugo · v3.1<br>
+            <span style="font-size: 0.65rem;">Sistema de Notas integrado | Sugestões: avisos@egesp.sp.gov.br</span>
         </div>
     </div>
     
@@ -574,7 +681,7 @@
                 <i class="fas fa-microchip"></i>
                 Central de Sistemas
             </h2>
-            <button class="btn-fullscreen" onclick="toggleFullscreen()" id="fullscreenBtn">
+            <button class="btn-fullscreen" onclick="toggleFullscreen()">
                 <i class="fas fa-expand"></i> Tela cheia
             </button>
         </div>
@@ -598,9 +705,23 @@
     </div>
 </div>
 
+<!-- Modal para adicionar notas (apenas para demonstração local) -->
+<div class="modal" id="noteModal">
+    <div class="modal-content">
+        <h4>✏️ Nova Nota</h4>
+        <input type="text" id="noteTitleInput" placeholder="Título da nota" maxlength="50">
+        <textarea id="noteContentInput" rows="4" placeholder="Digite sua nota ou lembrete..."></textarea>
+        <div class="modal-buttons">
+            <button class="btn-external btn-secondary" onclick="closeModal()">Cancelar</button>
+            <button class="btn-external" onclick="addNote()">Salvar Nota</button>
+        </div>
+    </div>
+</div>
+
 <script>
     let currentSystem = null;
     let isFullscreen = false;
+    let notesData = [];
     
     const systemItems = document.querySelectorAll('.system-item');
     const systemFrame = document.getElementById('systemFrame');
@@ -609,9 +730,140 @@
     const iframeWrapper = document.getElementById('iframeWrapper');
     const infoMessage = document.getElementById('infoMessage');
     
+    // URL DO GOOGLE SCRIPT - SUBSTITUA PELO SEU LINK!
+    // Você pode criar um Google Apps Script que retorna um HTML com um sistema de notas
+    // Basta publicar como aplicação web e colocar a URL abaixo
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/SEU_SCRIPT_AQUI/exec";
+    
+    // Versão demonstração local com notas autoadesivas (caso não tenha o Google Script ainda)
+    function loadLocalNotesSystem() {
+        infoMessage.style.display = 'none';
+        systemFrame.style.display = 'none';
+        
+        // Criar container de notas local
+        const notesContainer = document.createElement('div');
+        notesContainer.className = 'sticky-notes-demo';
+        notesContainer.id = 'localNotesContainer';
+        notesContainer.innerHTML = `
+            <div class="notes-header">
+                <h3><i class="fas fa-sticky-note"></i> Mural de Notas EGESP</h3>
+                <button class="add-note-btn" onclick="openNoteModal()">
+                    <i class="fas fa-plus"></i> Nova Nota
+                </button>
+            </div>
+            <div id="notesGrid" class="notes-grid"></div>
+        `;
+        
+        // Remover conteúdo anterior e adicionar
+        iframeWrapper.innerHTML = '';
+        iframeWrapper.appendChild(notesContainer);
+        
+        // Carregar notas salvas localmente
+        loadNotesFromStorage();
+        renderNotes();
+        
+        currentSystemTitle.innerHTML = `<i class="fas fa-sticky-note"></i> Avisos e Notas - Mural EGESP`;
+    }
+    
+    // Funções para notas locais (demonstração)
+    function loadNotesFromStorage() {
+        const saved = localStorage.getItem('egesp_notes');
+        if (saved) {
+            notesData = JSON.parse(saved);
+        } else {
+            // Notas de exemplo
+            notesData = [
+                { id: 1, title: "📢 Reunião de alinhamento", content: "Quinta-feira, 15h, sala de reuniões do 17º andar.", date: new Date().toLocaleDateString() },
+                { id: 2, title: "⚠️ Manutenção programada", content: "Sistema de inventário offline das 22h às 23h59.", date: new Date().toLocaleDateString() },
+                { id: 3, title: "✅ Novo treinamento", content: "Capacitação sobre o novo sistema de chamados - inscreva-se!", date: new Date().toLocaleDateString() }
+            ];
+            saveNotesToStorage();
+        }
+    }
+    
+    function saveNotesToStorage() {
+        localStorage.setItem('egesp_notes', JSON.stringify(notesData));
+    }
+    
+    function renderNotes() {
+        const grid = document.getElementById('notesGrid');
+        if (!grid) return;
+        
+        if (notesData.length === 0) {
+            grid.innerHTML = `<div class="empty-notes"><i class="fas fa-inbox"></i><p>Nenhuma nota ainda. Clique em "Nova Nota" para adicionar!</p></div>`;
+            return;
+        }
+        
+        grid.innerHTML = notesData.map(note => `
+            <div class="note-card">
+                <div class="note-title">
+                    <span>${escapeHtml(note.title)}</span>
+                    <button class="delete-note" onclick="deleteNote(${note.id})"><i class="fas fa-trash-alt"></i></button>
+                </div>
+                <div class="note-content">${escapeHtml(note.content)}</div>
+                <div class="note-date">
+                    <span><i class="far fa-calendar-alt"></i> ${note.date}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    window.openNoteModal = function() {
+        document.getElementById('noteModal').classList.add('active');
+        document.getElementById('noteTitleInput').value = '';
+        document.getElementById('noteContentInput').value = '';
+    }
+    
+    window.closeModal = function() {
+        document.getElementById('noteModal').classList.remove('active');
+    }
+    
+    window.addNote = function() {
+        const title = document.getElementById('noteTitleInput').value.trim();
+        const content = document.getElementById('noteContentInput').value.trim();
+        
+        if (!title && !content) {
+            alert('Preencha pelo menos o título ou o conteúdo da nota');
+            return;
+        }
+        
+        const newNote = {
+            id: Date.now(),
+            title: title || "Sem título",
+            content: content || "Sem conteúdo",
+            date: new Date().toLocaleDateString('pt-BR')
+        };
+        
+        notesData.unshift(newNote);
+        saveNotesToStorage();
+        renderNotes();
+        closeModal();
+    }
+    
+    window.deleteNote = function(id) {
+        if (confirm('Excluir esta nota?')) {
+            notesData = notesData.filter(n => n.id !== id);
+            saveNotesToStorage();
+            renderNotes();
+        }
+    }
+    
     function showWelcomeMessage() {
         infoMessage.style.display = 'flex';
         systemFrame.style.display = 'none';
+        // Limpar container local se existir
+        const localContainer = document.getElementById('localNotesContainer');
+        if (localContainer) {
+            iframeWrapper.innerHTML = '';
+            iframeWrapper.appendChild(infoMessage);
+            iframeWrapper.appendChild(systemFrame);
+        }
         systemFrame.src = 'about:blank';
         currentSystemTitle.innerHTML = `<i class="fas fa-microchip"></i> Central de Sistemas`;
         
@@ -623,6 +875,7 @@
                 <i class="fas fa-info-circle"></i> Sistemas em desenvolvimento serão ativados em breve
             </p>
         `;
+        infoMessage.style.display = 'flex';
     }
     
     function openExternalLink(url, title) {
@@ -653,7 +906,7 @@
         infoMessage.innerHTML = `
             <i class="fas fa-code" style="background: linear-gradient(135deg, #f59e0b, #ea580c); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>
             <h3>🚧 Em desenvolvimento</h3>
-            <p>O sistema está em fase de construção e será disponibilizado em breve.</p>
+            <p>O sistema ${title} está em fase de construção e será disponibilizado em breve.</p>
             <button onclick="showWelcomeMessage()" class="btn-external" style="background: linear-gradient(135deg, #f59e0b, #ea580c);">
                 Voltar
             </button>
@@ -664,18 +917,17 @@
         window.open(url, '_blank', 'noopener,noreferrer');
         
         let icon = 'fa-external-link-alt';
-        let iconGradient = 'linear-gradient(135deg, #667eea, #764ba2)';
         let customMessage = '';
         
         if (type === 'tv') {
             icon = 'fa-tv';
-            customMessage = 'O Canva não permite exibição em iframes por questões de segurança. O conteúdo foi aberto em nova aba.';
+            customMessage = 'O Canva não permite exibição em iframes. O conteúdo foi aberto em nova aba.';
         } else if (type === 'repo') {
             icon = 'fa-video';
-            customMessage = 'O SharePoint requer autenticação e não permite iframes. A pasta foi aberta em nova aba.';
+            customMessage = 'O SharePoint foi aberto em nova aba para você acessar as gravações.';
         } else if (type === 'listas') {
             icon = 'fa-clipboard-list';
-            customMessage = 'O SharePoint requer autenticação. A lista de presença foi aberta em nova aba para você acessar.';
+            customMessage = 'A lista de presença foi aberta em nova aba para você acessar.';
         }
         
         infoMessage.style.display = 'flex';
@@ -683,7 +935,7 @@
         currentSystemTitle.innerHTML = `<i class="fas ${icon}"></i> ${title}`;
         
         infoMessage.innerHTML = `
-            <i class="fas ${icon}" style="background: ${iconGradient}; -webkit-background-clip: text; background-clip: text; color: transparent;"></i>
+            <i class="fas ${icon}" style="background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>
             <h3>📂 ${title}</h3>
             <p>${customMessage}</p>
             <button onclick="showWelcomeMessage()" class="btn-external btn-secondary">Voltar</button>
@@ -697,6 +949,14 @@
         
         systemItems.forEach(item => item.classList.remove('active'));
         element.classList.add('active');
+        
+        // Limpar container local se existir
+        const localContainer = document.getElementById('localNotesContainer');
+        if (localContainer) {
+            iframeWrapper.innerHTML = '';
+            iframeWrapper.appendChild(systemFrame);
+            iframeWrapper.appendChild(loadingOverlay);
+        }
         
         loadingOverlay.style.display = 'flex';
         systemFrame.style.display = 'block';
@@ -725,6 +985,22 @@
         currentSystem = { url, title, element, type: 'iframe' };
     }
     
+    function loadNoticesSystem(element) {
+        // Tenta carregar o Google Scripts
+        const scriptUrl = element.getAttribute('data-url');
+        
+        // Se ainda não configurou o Google Script, usa a versão local
+        if (scriptUrl === "https://script.google.com/macros/s/SEU_SCRIPT_AQUI/exec" || !scriptUrl) {
+            loadLocalNotesSystem();
+        } else {
+            // Tenta carregar como iframe normal
+            loadIframeSystem(scriptUrl, "Avisos e Notas - Mural EGESP", element);
+        }
+        
+        systemItems.forEach(item => item.classList.remove('active'));
+        element.classList.add('active');
+    }
+    
     function loadSystem(element) {
         const url = element.getAttribute('data-url');
         const title = element.getAttribute('data-title');
@@ -737,6 +1013,12 @@
         
         if (type === 'development' || !url || url === '#') {
             showDevelopmentMessage(title);
+            return;
+        }
+        
+        // Verifica se é o sistema de notas
+        if (element.classList.contains('notices') || title === 'Avisos e Notas - Mural EGESP') {
+            loadNoticesSystem(element);
             return;
         }
         
@@ -800,10 +1082,14 @@
     });
     
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') showWelcomeMessage();
+        if (e.key === 'Escape') {
+            closeModal();
+            showWelcomeMessage();
+        }
     });
     
-    console.log('✅ EGESP Central v3.0 - Design profissional ativado');
+    console.log('✅ EGESP Central v3.1 - Sistema de Notas Autoadesivas integrado!');
+    console.log('📌 Dica: Para usar com Google Scripts, edite a constante GOOGLE_SCRIPT_URL no código');
 </script>
 </body>
 </html>
