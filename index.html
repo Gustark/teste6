@@ -19,14 +19,12 @@
             min-height: 100vh;
         }
         
-        /* Container principal com colunas */
         .main-container {
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
         
-        /* SIDEBAR - Coluna de Sistemas (30%) */
         .sidebar {
             width: 30%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -56,7 +54,6 @@
             opacity: 0.9;
         }
         
-        /* Lista de sistemas */
         .systems-list {
             flex: 1;
             padding: 20px;
@@ -82,16 +79,10 @@
             border-left: 4px solid #ffd700;
         }
         
-        /* Estilo diferente para links externos */
         .system-item.external-link {
             border-left: 3px solid #ffd700;
         }
         
-        .system-item.external-link:hover {
-            background: rgba(255,255,255,0.25);
-        }
-        
-        /* Destaque especial para TV Corredor */
         .system-item.tv-hall {
             background: rgba(0, 0, 0, 0.2);
             border-left: 3px solid #ff9800;
@@ -130,11 +121,6 @@
             color: white;
         }
         
-        .status-offline {
-            background: #ef4444;
-            color: white;
-        }
-        
         .status-development {
             background: #f59e0b;
             color: white;
@@ -159,7 +145,6 @@
             border-radius: 10px;
         }
         
-        /* ÁREA DE CONTEÚDO - Coluna do iframe (70%) */
         .content-area {
             width: 70%;
             display: flex;
@@ -258,7 +243,8 @@
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             z-index: 20;
-            max-width: 400px;
+            max-width: 450px;
+            width: 90%;
         }
         
         .info-message i {
@@ -289,11 +275,16 @@
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s;
+            margin: 5px;
         }
         
         .btn-external:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: #64748b;
         }
         
         .error-message {
@@ -315,7 +306,6 @@
             margin-bottom: 15px;
         }
         
-        /* Rodapé */
         .sidebar-footer {
             padding: 20px 25px;
             border-top: 1px solid rgba(255,255,255,0.2);
@@ -323,7 +313,6 @@
             text-align: center;
         }
         
-        /* Scrollbar personalizada */
         .sidebar::-webkit-scrollbar {
             width: 6px;
         }
@@ -337,7 +326,6 @@
             border-radius: 3px;
         }
         
-        /* Responsivo */
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
@@ -357,7 +345,6 @@
 </head>
 <body>
 <div class="main-container">
-    <!-- COLUNA 1: LISTA DE SISTEMAS (30%) -->
     <div class="sidebar">
         <div class="sidebar-header">
             <h1>
@@ -368,7 +355,7 @@
         </div>
         
         <div class="systems-list" id="systemsList">
-            <!-- Sistema 1: Inventário (Iframe) -->
+            <!-- Inventário -->
             <div class="system-item" data-url="https://script.google.com/macros/s/AKfycbyz9_SOxtSotlHnN6LB71GPfZtUAhKX0McBbItVAeArhGVxoECTZ0R4Wq6PIjyXnD4xvg/exec" data-title="Inventário EGESP" data-type="iframe">
                 <div class="system-icon">
                     <i class="fas fa-boxes"></i>
@@ -380,7 +367,7 @@
                 </span>
             </div>
             
-            <!-- Sistema 2: SSC EGESP (Hyperlink - não abre em iframe) -->
+            <!-- SSC Portal (Externo) -->
             <div class="system-item external-link" data-url="https://www4.fazenda.sp.gov.br/SistemaEgespLogin/" data-title="Sistema EGESP - SSC" data-type="external">
                 <div class="system-icon">
                     <i class="fas fa-external-link-alt"></i>
@@ -390,52 +377,49 @@
                 <span class="system-status status-external">
                     <i class="fas fa-external-link-alt"></i> Abrir em nova aba
                 </span>
-                <span class="badge-external">
-                    <i class="fas fa-lock"></i> Externo
-                </span>
             </div>
             
-            <!-- Sistema 3: Listas de presença (Em desenvolvimento com descrição atualizada) -->
-            <div class="system-item" data-url="#" data-title="Listas de presença" data-type="iframe">
+            <!-- Listas de presença -->
+            <div class="system-item" data-url="#" data-title="Listas de presença" data-type="development">
                 <div class="system-icon">
                     <i class="fas fa-users"></i>
                 </div>
                 <h3>📋 Listas de presença</h3>
-                <p>Em desenvolvimento - Em breve gestão de frequência e colaboradores</p>
+                <p>Em desenvolvimento - Gestão de frequência e colaboradores</p>
                 <span class="system-status status-development">
                     <i class="fas fa-code"></i> Em desenvolvimento
                 </span>
             </div>
             
-            <!-- NOVA ABA: TV CORREDOR - 17º Andar (Iframe Canva) -->
-            <div class="system-item tv-hall" data-url="https://canva.link/1ljqzxzw29d0yuh" data-title="TV Corredor - 17º Andar" data-type="iframe">
+            <!-- TV CORREDOR - COM OPÇÃO DE ABRIR EM NOVA ABA (iframe bloqueado) -->
+            <div class="system-item tv-hall" data-url="https://canva.link/1ljqzxzw29d0yuh" data-title="TV Corredor - 17º Andar" data-type="blocked-iframe">
                 <div class="system-icon">
                     <i class="fas fa-tv"></i>
                 </div>
                 <h3>📺 TV CORREDOR | 17º Andar</h3>
-                <p>Edição e programação das TVs do corredor - displays digitais interativos</p>
+                <p>Edição e programação das TVs do corredor - displays digitais</p>
                 <span class="system-status status-tv">
-                    <i class="fas fa-play-circle"></i> Ao vivo
+                    <i class="fas fa-external-link-alt"></i> Abrir em nova aba
                 </span>
                 <span class="badge-external">
                     <i class="fas fa-chalkboard"></i> Mural Digital
                 </span>
             </div>
             
-            <!-- Sistema 4: Financeiro (Em desenvolvimento - descrição atualizada) -->
-            <div class="system-item" data-url="#" data-title="Sistema Financeiro" data-type="iframe">
+            <!-- Financeiro -->
+            <div class="system-item" data-url="#" data-title="Sistema Financeiro" data-type="development">
                 <div class="system-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <h3>💰 Financeiro EGESP</h3>
-                <p>Em desenvolvimento - Controle orçamentário e despesas em breve</p>
+                <p>Em desenvolvimento - Controle orçamentário e despesas</p>
                 <span class="system-status status-development">
                     <i class="fas fa-code"></i> Em desenvolvimento
                 </span>
             </div>
             
-            <!-- Sistema 5: Chamados (Em desenvolvimento) -->
-            <div class="system-item" data-url="#" data-title="Sistema de Chamados" data-type="iframe">
+            <!-- Chamados -->
+            <div class="system-item" data-url="#" data-title="Sistema de Chamados" data-type="development">
                 <div class="system-icon">
                     <i class="fas fa-ticket-alt"></i>
                 </div>
@@ -446,8 +430,8 @@
                 </span>
             </div>
             
-            <!-- Sistema 6: Documentos (Em desenvolvimento) -->
-            <div class="system-item" data-url="#" data-title="Gestão Documental" data-type="iframe">
+            <!-- Documentos -->
+            <div class="system-item" data-url="#" data-title="Gestão Documental" data-type="development">
                 <div class="system-icon">
                     <i class="fas fa-folder-open"></i>
                 </div>
@@ -461,11 +445,10 @@
         
         <div class="sidebar-footer">
             <i class="fas fa-code"></i> Desenvolvido por Gustavo Hugo<br>
-            <span style="font-size: 0.65rem;">Versão 2.0 - TV Corredor integrada | Aceito Sugestões ❤️</span>
+            <span style="font-size: 0.65rem;">Versão 2.1 - TV Corredor (abrir em nova aba) | Aceito Sugestões ❤️</span>
         </div>
     </div>
     
-    <!-- COLUNA 2: CONTEÚDO (70%) -->
     <div class="content-area">
         <div class="content-header">
             <h2 id="currentSystemTitle">
@@ -491,7 +474,7 @@
                     <i class="fas fa-info-circle"></i> Sistemas em desenvolvimento serão disponibilizados em breve
                 </p>
                 <p style="margin-top: 10px; font-size: 0.8rem; background: #f1f5f9; padding: 8px; border-radius: 12px;">
-                    <i class="fas fa-tv"></i> <strong>Novidade:</strong> TV Corredor 17º Andar - Edite a programação das TVs diretamente pelo Canva!
+                    <i class="fas fa-tv"></i> <strong>TV Corredor 17º Andar:</strong> Clique no item ao lado para abrir o Canva em nova aba!
                 </p>
             </div>
             <iframe id="systemFrame" src="about:blank" style="display: none;"></iframe>
@@ -500,11 +483,9 @@
 </div>
 
 <script>
-    // Configurações
     let currentSystem = null;
     let isFullscreen = false;
     
-    // Elementos
     const systemItems = document.querySelectorAll('.system-item');
     const systemFrame = document.getElementById('systemFrame');
     const loadingOverlay = document.getElementById('loadingOverlay');
@@ -512,16 +493,31 @@
     const iframeWrapper = document.getElementById('iframeWrapper');
     const infoMessage = document.getElementById('infoMessage');
     
+    // Função para mostrar a mensagem de boas-vindas original
+    function showWelcomeMessage() {
+        infoMessage.style.display = 'flex';
+        systemFrame.style.display = 'none';
+        systemFrame.src = 'about:blank';
+        currentSystemTitle.innerHTML = `<i class="fas fa-microchip"></i> Selecione um sistema`;
+        
+        infoMessage.innerHTML = `
+            <i class="fas fa-hand-point-left"></i>
+            <h3>Bem-vindo à Central SSC</h3>
+            <p>Selecione um sistema no menu à esquerda para começar</p>
+            <p style="font-size: 0.85rem; color: #94a3b8;">
+                <i class="fas fa-info-circle"></i> Sistemas em desenvolvimento serão disponibilizados em breve
+            </p>
+            <p style="margin-top: 10px; font-size: 0.8rem; background: #f1f5f9; padding: 8px; border-radius: 12px;">
+                <i class="fas fa-tv"></i> <strong>TV Corredor 17º Andar:</strong> Clique no item ao lado para abrir o Canva em nova aba!
+            </p>
+        `;
+    }
+    
     // Função para abrir link externo
     function openExternalLink(url, title) {
         window.open(url, '_blank', 'noopener,noreferrer');
         
-        // Mostrar feedback visual
-        infoMessage.style.display = 'flex';
-        systemFrame.style.display = 'none';
-        currentSystemTitle.innerHTML = `<i class="fas fa-external-link-alt"></i> ${title} - Aberto em nova aba`;
-        
-        // Criar notificação temporária flutuante
+        // Mostrar feedback temporário
         const tempMsg = document.createElement('div');
         tempMsg.className = 'info-message';
         tempMsg.style.position = 'fixed';
@@ -533,78 +529,85 @@
         tempMsg.style.maxWidth = '300px';
         tempMsg.style.zIndex = '9999';
         tempMsg.innerHTML = `
-            <i class="fas fa-external-link-alt" style="font-size: 2rem;"></i>
-            <p style="margin-top: 10px;">✅ Sistema aberto em nova aba!<br>
-            <small>Verifique seu navegador</small></p>
+            <i class="fas fa-external-link-alt" style="font-size: 2rem; color: #10b981;"></i>
+            <p style="margin-top: 10px;"><strong>✅ ${title}</strong><br>Aberto em nova aba!</p>
         `;
         
         document.body.appendChild(tempMsg);
         setTimeout(() => tempMsg.remove(), 3000);
         
-        // Resetar título após 5 segundos
-        setTimeout(() => {
-            if (currentSystemTitle.innerHTML.includes('Aberto em nova aba')) {
-                currentSystemTitle.innerHTML = `<i class="fas fa-microchip"></i> Selecione um sistema`;
-                if (infoMessage) infoMessage.style.display = 'flex';
-                systemFrame.style.display = 'none';
-            }
-        }, 5000);
+        // Manter a mensagem de boas-vindas visível
+        showWelcomeMessage();
     }
     
-    // Função principal para carregar sistema no iframe
-    function loadSystem(element) {
-        const url = element.getAttribute('data-url');
-        const title = element.getAttribute('data-title');
-        const type = element.getAttribute('data-type');
+    // Função para mostrar sistemas em desenvolvimento
+    function showDevelopmentMessage(title) {
+        infoMessage.style.display = 'flex';
+        systemFrame.style.display = 'none';
+        currentSystemTitle.innerHTML = `<i class="fas fa-code"></i> ${title} (Em desenvolvimento)`;
         
-        // Caso seja link externo (SSC Portal)
-        if (type === 'external') {
-            openExternalLink(url, title);
-            return;
+        let customMessage = '';
+        if (title === 'Listas de presença') {
+            customMessage = 'O módulo de Listas de Presença está em fase de construção. Em breve você poderá gerenciar frequência, registrar pontos e acompanhar colaboradores de forma integrada.';
+        } else if (title === 'Sistema Financeiro') {
+            customMessage = 'Sistema Financeiro em desenvolvimento: em breve teremos dashboards de controle orçamentário, gestão de despesas e relatórios gerenciais.';
+        } else if (title === 'Sistema de Chamados') {
+            customMessage = 'A Central de Chamados está sendo desenvolvida para oferecer abertura e acompanhamento de solicitações de TI, manutenção e serviços internos.';
+        } else if (title === 'Gestão Documental') {
+            customMessage = 'Gestão Documental Digital: em desenvolvimento para armazenamento seguro de contratos, memorandos e arquivos importantes com busca inteligente.';
+        } else {
+            customMessage = 'Este sistema está em desenvolvimento e será disponibilizado em breve. Acompanhe as novidades da Central SSC.';
         }
         
-        // Verificar se o sistema está em desenvolvimento (url '#' ou vazia)
-        if (!url || url === '#') {
-            showDevelopmentMessage(title);
-            return;
-        }
-        
-        // Caso especial: garantir que TV Corredor seja carregada adequadamente
-        if (title === 'TV Corredor - 17º Andar' || element.classList.contains('tv-hall')) {
-            // Carregar normalmente no iframe
-            proceedToLoadIframe(url, title, element);
-            return;
-        }
-        
-        // Para sistemas com URL válida (como inventário)
-        proceedToLoadIframe(url, title, element);
+        infoMessage.innerHTML = `
+            <i class="fas fa-code" style="color: #f59e0b; font-size: 4rem;"></i>
+            <h3>🚧 ${title} - Em desenvolvimento</h3>
+            <p>${customMessage}</p>
+            <button onclick="showWelcomeMessage()" class="btn-external" style="background: #f59e0b;">
+                Voltar para a Central
+            </button>
+        `;
     }
     
-    // Função unificada para carregar iframe
-    function proceedToLoadIframe(url, title, element) {
-        // Esconder mensagem de boas vindas
+    // Função para TV Corredor (explicar que não pode ser iframe e abrir em nova aba)
+    function showTvMessageAndOpen(url, title) {
+        // Abrir em nova aba
+        window.open(url, '_blank', 'noopener,noreferrer');
+        
+        // Mostrar mensagem explicativa na área de conteúdo
+        infoMessage.style.display = 'flex';
+        systemFrame.style.display = 'none';
+        currentSystemTitle.innerHTML = `<i class="fas fa-tv"></i> ${title}`;
+        
+        infoMessage.innerHTML = `
+            <i class="fas fa-tv" style="color: #ff9800; font-size: 4rem;"></i>
+            <h3>📺 ${title}</h3>
+            <p>O Canva não permite ser exibido dentro de uma página (bloqueio de segurança por X-Frame-Options).</p>
+            <p style="background: #fff3e0; padding: 12px; border-radius: 10px;">
+                <i class="fas fa-info-circle"></i> O conteúdo foi aberto em uma <strong>nova aba do navegador</strong> para você editar a programação das TVs do corredor do 17º andar.
+            </p>
+            <button onclick="showWelcomeMessage()" class="btn-external btn-secondary">
+                Voltar para a Central
+            </button>
+            <button onclick="window.open('${url}', '_blank')" class="btn-external" style="background: #ff9800;">
+                <i class="fas fa-external-link-alt"></i> Abrir novamente
+            </button>
+        `;
+    }
+    
+    // Função para carregar sistema no iframe (apenas sites que permitem)
+    function loadIframeSystem(url, title, element) {
         infoMessage.style.display = 'none';
-        
-        // Atualizar título do cabeçalho
         currentSystemTitle.innerHTML = `<i class="fas fa-microchip"></i> ${title}`;
         
-        // Remover classe active de todos
-        systemItems.forEach(item => {
-            item.classList.remove('active');
-        });
-        
-        // Adicionar active ao sistema selecionado
+        systemItems.forEach(item => item.classList.remove('active'));
         element.classList.add('active');
         
-        // Mostrar loading e preparar iframe
         loadingOverlay.style.display = 'flex';
-        systemFrame.style.opacity = '0';
         systemFrame.style.display = 'block';
-        
-        // Carregar a URL
+        systemFrame.style.opacity = '0';
         systemFrame.src = url;
         
-        // Timeout de segurança para esconder loading
         const timeoutId = setTimeout(() => {
             if (loadingOverlay.style.display === 'flex') {
                 loadingOverlay.style.display = 'none';
@@ -612,94 +615,29 @@
             }
         }, 6000);
         
-        // Quando o iframe carregar com sucesso
         systemFrame.onload = function() {
             clearTimeout(timeoutId);
             loadingOverlay.style.display = 'none';
             systemFrame.style.opacity = '1';
             console.log(`✅ Sistema carregado: ${title}`);
-            
-            // Tratamento especial para TV Corredor: pequeno ajuste de segurança cross-origin não afeta exibição
-            if (title === 'TV Corredor - 17º Andar') {
-                console.log("📺 TV Corredor 17º Andar - Modo de exibição ativo");
-            }
         };
         
-        // Tratamento de erro no iframe
         systemFrame.onerror = function() {
             clearTimeout(timeoutId);
             loadingOverlay.style.display = 'none';
-            showErrorInWrapper('❌ Falha ao carregar o conteúdo. Verifique sua conexão ou tente novamente.');
+            showErrorInWrapper('❌ Falha ao carregar o sistema. Verifique sua conexão.');
         };
         
-        // Registrar sistema atual
         currentSystem = { url, title, element, type: 'iframe' };
     }
     
-    // Mensagem amigável para sistemas em desenvolvimento (descrição aprimorada)
-    function showDevelopmentMessage(systemTitle) {
-        infoMessage.style.display = 'flex';
-        systemFrame.style.display = 'none';
-        currentSystemTitle.innerHTML = `<i class="fas fa-code"></i> ${systemTitle} (Em desenvolvimento)`;
-        
-        let customMessage = '';
-        if (systemTitle === 'Listas de presença') {
-            customMessage = 'O módulo de Listas de Presença está em fase de construção. Em breve você poderá gerenciar frequência, registrar pontos e acompanhar colaboradores de forma integrada. Aguarde as próximas atualizações!';
-        } else if (systemTitle === 'Sistema Financeiro') {
-            customMessage = 'Sistema Financeiro em desenvolvimento: em breve teremos dashboards de controle orçamentário, gestão de despesas e relatórios gerenciais para otimizar os recursos da EGESP.';
-        } else if (systemTitle === 'Sistema de Chamados') {
-            customMessage = 'A Central de Chamados está sendo desenvolvida para oferecer abertura e acompanhamento de solicitações de TI, manutenção e serviços internos. Em breve novidades!';
-        } else if (systemTitle === 'Gestão Documental') {
-            customMessage = 'Gestão Documental Digital: em desenvolvimento para armazenamento seguro de contratos, memorandos e arquivos importantes com busca inteligente.';
-        } else {
-            customMessage = 'Este sistema está em desenvolvimento e será disponibilizado em breve. Acompanhe as novidades da Central SSC.';
-        }
-        
-        infoMessage.innerHTML = `
-            <i class="fas fa-code" style="color: #f59e0b;"></i>
-            <h3>🚧 ${systemTitle} - Em desenvolvimento</h3>
-            <p>${customMessage}</p>
-            <button onclick="fecharMensagem()" class="btn-external" style="background: #f59e0b;">
-                Voltar para a Central
-            </button>
-            <p style="font-size: 0.7rem; margin-top: 15px; color:#94a3b8;">
-                <i class="fas fa-sync-alt"></i> Previsão de lançamento em breve
-            </p>
-        `;
-    }
-    
-    // Fechar mensagem e resetar estado
-    function fecharMensagem() {
-        infoMessage.style.display = 'flex';
-        systemFrame.style.display = 'none';
-        currentSystemTitle.innerHTML = `<i class="fas fa-microchip"></i> Selecione um sistema`;
-        
-        // Restaurar mensagem original de boas vindas (com destaque para TV corredor)
-        infoMessage.innerHTML = `
-            <i class="fas fa-hand-point-left"></i>
-            <h3>Bem-vindo à Central SSC</h3>
-            <p>Selecione um sistema no menu à esquerda para começar</p>
-            <p style="font-size: 0.85rem; color: #94a3b8;">
-                <i class="fas fa-info-circle"></i> Sistemas em desenvolvimento serão disponibilizados em breve
-            </p>
-            <p style="margin-top: 10px; font-size: 0.8rem; background: #f1f5f9; padding: 8px; border-radius: 12px;">
-                <i class="fas fa-tv"></i> <strong>Novidade:</strong> TV Corredor 17º Andar - Edite a programação das TVs diretamente pelo Canva!
-            </p>
-        `;
-        
-        // Remove qualquer erro residual
-        const oldError = document.querySelector('.error-message');
-        if (oldError) oldError.remove();
-    }
-    
-    // Exibir erro na área principal
     function showErrorInWrapper(message) {
         const errorDiv = document.createElement('div');
         errorDiv.className = 'error-message';
         errorDiv.innerHTML = `
             <i class="fas fa-exclamation-triangle"></i>
             <p>${message}</p>
-            <button onclick="this.parentElement.remove()" style="margin-top:15px; padding:8px 20px; background:#667eea; color:white; border:none; border-radius:8px; cursor:pointer;">
+            <button onclick="this.parentElement.remove(); showWelcomeMessage();" style="margin-top:15px; padding:8px 20px; background:#667eea; color:white; border:none; border-radius:8px; cursor:pointer;">
                 Fechar
             </button>
         `;
@@ -708,11 +646,46 @@
         if (oldError) oldError.remove();
         
         iframeWrapper.appendChild(errorDiv);
-        
-        setTimeout(() => {
-            if (errorDiv.parentElement) errorDiv.remove();
-        }, 8000);
     }
+    
+    // Função principal que decide o que fazer baseado no tipo do sistema
+    function loadSystem(element) {
+        const url = element.getAttribute('data-url');
+        const title = element.getAttribute('data-title');
+        const type = element.getAttribute('data-type');
+        
+        // Caso 1: Link externo (SSC Portal)
+        if (type === 'external') {
+            openExternalLink(url, title);
+            return;
+        }
+        
+        // Caso 2: Sistema em desenvolvimento
+        if (type === 'development' || !url || url === '#') {
+            showDevelopmentMessage(title);
+            return;
+        }
+        
+        // Caso 3: TV Corredor (iframe bloqueado pelo Canva)
+        if (type === 'blocked-iframe' || title === 'TV Corredor - 17º Andar') {
+            showTvMessageAndOpen(url, title);
+            return;
+        }
+        
+        // Caso 4: Iframe normal (Inventário)
+        if (type === 'iframe' && url && url !== '#') {
+            loadIframeSystem(url, title, element);
+            return;
+        }
+        
+        // Fallback
+        showDevelopmentMessage(title);
+    }
+    
+    // Expor funções globalmente para os botões HTML
+    window.showWelcomeMessage = showWelcomeMessage;
+    window.toggleFullscreen = toggleFullscreen;
+    window.loadSystem = loadSystem;
     
     // Alternar tela cheia
     function toggleFullscreen() {
@@ -734,7 +707,6 @@
         }
     }
     
-    // Detectar mudança de tela cheia
     document.addEventListener('fullscreenchange', function() {
         const fullscreenBtn = document.getElementById('fullscreenBtn');
         if (document.fullscreenElement) {
@@ -746,7 +718,7 @@
         }
     });
     
-    // Adicionar eventos de clique em todos os sistemas
+    // Adicionar eventos de clique
     systemItems.forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
@@ -754,27 +726,16 @@
         });
     });
     
-    // Atalhos de teclado: ESC fecha mensagens de erro, F5 recarrega sistema atual (se for iframe)
+    // Atalho ESC para voltar à mensagem de boas-vindas
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             const error = document.querySelector('.error-message');
             if (error) error.remove();
-            // se houver alguma mensagem de desenvolvimento, opcionalmente pode fechar, mas manterá comportamento natural
-        }
-        
-        if (e.key === 'F5' && currentSystem && currentSystem.type !== 'external') {
-            e.preventDefault();
-            if (currentSystem && currentSystem.element) {
-                // Recarrega o mesmo sistema
-                loadSystem(currentSystem.element);
-            }
+            showWelcomeMessage();
         }
     });
     
-    // Proteção extra: garantir que a TV corredor carregue corretamente ao clicar
-    console.log('✅ Central de Sistemas EGESP - Layout Atualizado com TV Corredor 17º Andar');
-    console.log('📺 Link da TV Corredor: https://canva.link/1ljqzxzw29d0yuh (iframe integrado)');
-    console.log('💡 Sistemas em desenvolvimento agora exibem descrição específica');
+    console.log('✅ Central EGESP carregada - TV Corredor abre em nova aba (Canva não permite iframe)');
 </script>
 </body>
 </html>
