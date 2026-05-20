@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>EGESP - Central de Sistemas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+        
+        /* Container principal com colunas */
+        .main-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* SIDEBAR - Coluna de Sistemas (30%) */
+        .sidebar {
+            width: 30%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-header {
+            padding: 30px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .sidebar-header h1 i {
+            margin-right: 10px;
+        }
+        
+        .sidebar-header p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        
+        /* Lista de sistemas */
+        .systems-list {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .system-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .system-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .system-item.active {
+            background: rgba(255,255,255,0.25);
+            border-left: 4px solid #ffd700;
+        }
+        
+        /* Estilo diferente para links externos */
+        .system-item.external-link {
+            border-left: 3px solid #ffd700;
+        }
+        
+        .system-item.external-link:hover {
+            background: rgba(255,255,255,0.25);
+        }
+        
+        .system-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .system-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .system-item p {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+        
+        .system-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+        
+        .status-online {
+            background: #10b981;
+            color: white;
+        }
+        
+        .status-offline {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .status-development {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .status-external {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .badge-external {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 0.65rem;
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+        
+        /* ÁREA DE CONTEÚDO - Coluna do iframe (70%) */
+        .content-area {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+        
+        .content-header {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .content-header h2 {
+            font-size: 1.3rem;
+            color: #1e293b;
+        }
+        
+        .content-header h2 i {
+            color: #667eea;
+            margin-right: 10px;
+        }
+        
+        .btn-fullscreen {
+            background: #f1f5f9;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-fullscreen:hover {
+            background: #e2e8f0;
+        }
+        
+        .iframe-wrapper {
+            flex: 1;
+            position: relative;
+            background: #f8fafc;
+        }
+        
+        #systemFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        .loading-spinner {
+            text-align: center;
+        }
+        
+        .loading-spinner i {
+            font-size: 3rem;
+            color: #667eea;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loading-spinner p {
+            margin-top: 15px;
+            color: #64748b;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .info-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            z-index: 20;
+            max-width: 400px;
+        }
+        
+        .info-message i {
+            font-size: 4rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .info-message h3 {
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+        
+        .info-message p {
+            color: #64748b;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .btn-external {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .btn-external:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .error-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 20;
+        }
+        
+        .error-message i {
+            font-size: 3rem;
+            color: #ef4444;
+            margin-bottom: 15px;
+        }
+        
+        /* Rodapé */
+        .sidebar-footer {
+            padding: 20px 25px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.7rem;
+            text-align: center;
+        }
+        
+        /* Scrollbar personalizada */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                max-height: 40%;
+            }
+            
+            .content-area {
+                width: 100%;
+                height: 60%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <!-- COLUNA 1: LISTA DE SISTEMAS (30%) -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>
+                <i class="fas fa-microchip"></i>
+                EGESP
+            </h1>
+            <p>Central de Sistemas</p>
+        </div>
+        
+        <div class="systems-list" id="systemsList">
+            <!-- Sistema 1: Inventário (Iframe) -->
+            <div class="system-item" data-url="https://script.google.com/macros/s/AKfycbyz9_SOxtSotlHnN6LB71GPfZtUAhKX0McBbItVAeArhGVxoECTZ0R4Wq6PIjyXnD4xvg/exec" data-title="Inventário EGESP" data-type="iframe">
+                <div class="system-icon">
+                    <i class="fas fa-boxes"></i>
+                </div>
+                <h3>📦 Inventário EGESP</h3>
+                <p>Gestão completa de equipamentos e ativos</p>
+                <span class="system-status status-online">
+                    <i class="fas fa-circle"></i> Online
+                </span>
+            </div>
+            
+            <!-- Sistema 2: SSC EGESP (Hyperlink - não abre em iframe) -->
+            <div class="system-item external-link" data-url="https://www4.fazenda.sp.gov.br/SistemaEgespLogin/" data-title="Sistema EGESP - SSC" data-type="external">
+                <div class="system-icon">
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+                <h3>🏛️ SSC - Portal EGESP</h3>
+                <p>Acesso ao Sistema EGESP da Secretaria da Fazenda</p>
+                <span class="system-status status-external">
+                    <i class="fas fa-external-link-alt"></i> Abrir em nova aba
+                </span>
+                <span class="badge-external">
+                    <i class="fas fa-lock"></i> Externo
+                </span>
+            </div>
+            
+            <!-- Sistema 3: RH (Em breve) -->
+            <div class="system-item" data-url="#" data-title="Sistema RH" data-type="iframe">
+                <div class="system-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>👥 Sistema RH</h3>
+                <p>Gestão de colaboradores e benefícios</p>
+                <span class="system-status status-development">
+                    <i class="fas fa-code"></i> Em desenvolvimento
+                </span>
+            </div>
+            
+            <!-- Sistema 4: Financeiro -->
+            <div class="system-item" data-url="#" data-title="Sistema Financeiro" data-type="iframe">
+                <div class="system-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>💰 Sistema Financeiro</h3>
+                <p>Controle orçamentário e despesas</p>
+                <span class="system-status status-development">
+                    <i class="fas fa-code"></i> Planejado
+                </span>
+            </div>
+            
+            <!-- Sistema 5: Chamados -->
+            <div class="system-item" data-url="#" data-title="Sistema de Chamados" data-type="iframe">
+                <div class="system-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <h3>🎫 Sistema de Chamados</h3>
+                <p>Abertura e acompanhamento de solicitações</p>
+                <span class="system-status status-development">
+                    <i class="fas fa-code"></i> Planejado
+                </span>
+            </div>
+            
+            <!-- Sistema 6: Documentos -->
+            <div class="system-item" data-url="#" data-title="Gestão Documental" data-type="iframe">
+                <div class="system-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <h3>📄 Gestão Documental</h3>
+                <p>Armazenamento de documentos digitais</p>
+                <span class="system-status status-development">
+                    <i class="fas fa-code"></i> Planejado
+                </span>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer">
+            <i class="fas fa-code"></i> Desenvolvido por EGESP<br>
+            <span style="font-size: 0.65rem;">Versão 2.0</span>
+        </div>
+    </div>
+    
+    <!-- COLUNA 2: CONTEÚDO (70%) -->
+    <div class="content-area">
+        <div class="content-header">
+            <h2 id="currentSystemTitle">
+                <i class="fas fa-microchip"></i>
+                Selecione um sistema
+            </h2>
+            <button class="btn-fullscreen" onclick="toggleFullscreen()" id="fullscreenBtn">
+                <i class="fas fa-expand"></i> Tela cheia
+            </button>
+        </div>
+        <div class="iframe-wrapper" id="iframeWrapper">
+            <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner"></i>
+                    <p>Carregando sistema...</p>
+                </div>
+            </div>
+            <div class="info-message" id="infoMessage">
+                <i class="fas fa-hand-point-left"></i>
+                <h3>Bem-vindo à Central EGESP</h3>
+                <p>Selecione um sistema no menu à esquerda para começar</p>
+                <p style="font-size: 0.85rem; color: #94a3b8;">
+                    <i class="fas fa-info-circle"></i> Sistemas em desenvolvimento serão disponibilizados em breve
+                </p>
+            </div>
+            <iframe id="systemFrame" src="about:blank" style="display: none;"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Configurações
+    let currentSystem = null;
+    let isFullscreen = false;
+    
+    // Elementos
+    const systemItems = document.querySelectorAll('.system-item');
+    const systemFrame = document.getElementById('systemFrame');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const currentSystemTitle = document.getElementById('currentSystemTitle');
+    const iframeWrapper = document.getElementById('iframeWrapper');
+    const infoMessage = document.getElementById('infoMessage');
+    
+    // Função para abrir link externo
+    function openExternalLink(url, title) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+        
+        // Mostrar feedback no iframe
+        infoMessage.style.display = 'flex';
+        systemFrame.style.display = 'none';
+        currentSystemTitle.innerHTML = `<i class="fas fa-external-link-alt"></i> ${title} - Aberto em nova aba`;
+        
+        // Criar mensagem temporária
+        const tempMsg = document.createElement('div');
+        tempMsg.className = 'info-message';
+        tempMsg.style.position = 'fixed';
+        tempMsg.style.top = '20px';
+        tempMsg.style.right = '20px';
+        tempMsg.style.left = 'auto';
+        tempMsg.style.transform = 'none';
+        tempMsg.style.padding = '15px 25px';
+        tempMsg.style.maxWidth = '300px';
+        tempMsg.innerHTML = `
+            <i class="fas fa-external-link-alt" style="font-size: 2rem;"></i>
+            <p style="margin-top: 10px;">✅ Sistema aberto em nova aba!<br>
+            <small>Verifique seu navegador</small></p>
+        `;
+        
+        document.body.appendChild(tempMsg);
+        setTimeout(() => tempMsg.remove(), 3000);
+        
+        // Resetar depois de 3 segundos
+        setTimeout(() => {
+            if (currentSystemTitle.innerHTML.includes('Aberto em nova aba')) {
+                currentSystemTitle.innerHTML = `<i class="fas fa-microchip"></i> Selecione um sistema`;
+                infoMessage.style.display = 'flex';
+            }
+        }, 5000);
+    }
+    
+    // Função para carregar sistema no iframe
+    function loadSystem(element) {
+        const url = element.getAttribute('data-url');
+        const title = element.getAttribute('data-title');
+        const type = element.getAttribute('data-type');
+        
+        // Verificar se é link externo
+        if (type === 'external') {
+            openExternalLink(url, title);
+            return;
+        }
+        
+        // Verificar se sistema está disponível
+        if (!url || url === '#') {
+            showMessage('development', '🚧 Sistema em Desenvolvimento', 'Este sistema será disponibilizado em breve. Aguarde as atualizações!');
+            return;
+        }
+        
+        // Esconder mensagem de info
+        infoMessage.style.display = 'none';
+        
+        // Atualizar título
+        currentSystemTitle.innerHTML = `<i class="fas fa-microchip"></i> ${title}`;
+        
+        // Remover active de todos
+        systemItems.forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Adicionar active ao selecionado
+        element.classList.add('active');
+        
+        // Mostrar loading
+        loadingOverlay.style.display = 'flex';
+        systemFrame.style.opacity = '0';
+        systemFrame.style.display = 'block';
+        
+        // Carregar URL
+        systemFrame.src = url;
+        
+        // Timeout para loading
+        const timeoutId = setTimeout(() => {
+            if (loadingOverlay.style.display === 'flex') {
+                loadingOverlay.style.display = 'none';
+                systemFrame.style.opacity = '1';
+            }
+        }, 5000);
+        
+        // Quando o iframe carregar
+        systemFrame.onload = function() {
+            clearTimeout(timeoutId);
+            loadingOverlay.style.display = 'none';
+            systemFrame.style.opacity = '1';
+            console.log('✅ Sistema carregado:', title);
+        };
+        
+        // Erro no iframe
+        systemFrame.onerror = function() {
+            clearTimeout(timeoutId);
+            loadingOverlay.style.display = 'none';
+            showError('❌ Erro ao carregar o sistema<br>Verifique sua conexão com a internet');
+        };
+        
+        currentSystem = { url, title, element, type };
+    }
+    
+    // Mostrar mensagem de info
+    function showMessage(type, title, message) {
+        infoMessage.style.display = 'flex';
+        systemFrame.style.display = 'none';
+        currentSystemTitle.innerHTML = `<i class="fas fa-info-circle"></i> ${title}`;
+        
+        infoMessage.innerHTML = `
+            <i class="fas ${type === 'development' ? 'fa-code' : 'fa-exclamation-triangle'}"></i>
+            <h3>${title}</h3>
+            <p>${message}</p>
+            <button onclick="fecharMensagem()" class="btn-external" style="background: #64748b;">
+                Voltar
+            </button>
+        `;
+    }
+    
+    function fecharMensagem() {
+        infoMessage.style.display = 'flex';
+        systemFrame.style.display = 'none';
+        currentSystemTitle.innerHTML = `<i class="fas fa-microchip"></i> Selecione um sistema`;
+        
+        // Resetar info message original
+        infoMessage.innerHTML = `
+            <i class="fas fa-hand-point-left"></i>
+            <h3>Bem-vindo à Central EGESP</h3>
+            <p>Selecione um sistema no menu à esquerda para começar</p>
+            <p style="font-size: 0.85rem; color: #94a3b8;">
+                <i class="fas fa-info-circle"></i> Sistemas em desenvolvimento serão disponibilizados em breve
+            </p>
+        `;
+    }
+    
+    function showError(message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.innerHTML = `
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>${message}</p>
+            <button onclick="this.parentElement.remove()" style="margin-top:15px; padding:8px 20px; background:#667eea; color:white; border:none; border-radius:8px; cursor:pointer;">
+                Fechar
+            </button>
+        `;
+        
+        const oldError = document.querySelector('.error-message');
+        if (oldError) oldError.remove();
+        
+        iframeWrapper.appendChild(errorDiv);
+        
+        setTimeout(() => {
+            if (errorDiv.parentElement) errorDiv.remove();
+        }, 8000);
+    }
+    
+    // Alternar tela cheia
+    function toggleFullscreen() {
+        const elem = document.documentElement;
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        
+        if (!isFullscreen) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Sair';
+                isFullscreen = true;
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Tela cheia';
+                isFullscreen = false;
+            }
+        }
+    }
+    
+    // Detectar mudança de tela cheia
+    document.addEventListener('fullscreenchange', function() {
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        if (document.fullscreenElement) {
+            fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Sair';
+            isFullscreen = true;
+        } else {
+            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Tela cheia';
+            isFullscreen = false;
+        }
+    });
+    
+    // Adicionar eventos de clique nos sistemas
+    systemItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            loadSystem(this);
+        });
+    });
+    
+    // Atalhos de teclado
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const error = document.querySelector('.error-message');
+            if (error) error.remove();
+        }
+        
+        if (e.key === 'F5' && currentSystem && currentSystem.type !== 'external') {
+            e.preventDefault();
+            if (currentSystem && currentSystem.element) {
+                loadSystem(currentSystem.element);
+            }
+        }
+    });
+    
+    console.log('✅ Central de Sistemas EGESP - Layout em Colunas carregada!');
+    console.log('💡 Portal EGESP será aberto em nova aba por questões de segurança');
+</script>
+</body>
+</html>
