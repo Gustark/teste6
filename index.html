@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>EGESP - Central SSC | TV Corredor</title>
+    <title>EGESP - Central SSC | TV Corredor + Repositório</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -92,6 +92,15 @@
             background: rgba(255,152,0,0.25);
         }
         
+        .system-item.repo {
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 3px solid #2ecc71;
+        }
+        
+        .system-item.repo:hover {
+            background: rgba(46,204,113,0.25);
+        }
+        
         .system-icon {
             font-size: 1.8rem;
             margin-bottom: 10px;
@@ -133,6 +142,11 @@
         
         .status-tv {
             background: #ff9800;
+            color: white;
+        }
+        
+        .status-repo {
+            background: #2ecc71;
             color: white;
         }
         
@@ -351,7 +365,7 @@
                 <i class="fas fa-microchip"></i>
                 EGESP - SSC
             </h1>
-            <p>Central de Sistemas | TV Corredor 17º Andar</p>
+            <p>Central de Sistemas</p>
         </div>
         
         <div class="systems-list" id="systemsList">
@@ -391,7 +405,7 @@
                 </span>
             </div>
             
-            <!-- TV CORREDOR - COM OPÇÃO DE ABRIR EM NOVA ABA (iframe bloqueado) -->
+            <!-- TV CORREDOR - Canva -->
             <div class="system-item tv-hall" data-url="https://canva.link/1ljqzxzw29d0yuh" data-title="TV Corredor - 17º Andar" data-type="blocked-iframe">
                 <div class="system-icon">
                     <i class="fas fa-tv"></i>
@@ -403,6 +417,21 @@
                 </span>
                 <span class="badge-external">
                     <i class="fas fa-chalkboard"></i> Mural Digital
+                </span>
+            </div>
+            
+            <!-- REPOSITÓRIO DE GRAVAÇÕES - SharePoint -->
+            <div class="system-item repo" data-url="https://fazendaspgovbr-my.sharepoint.com/:f:/g/personal/glasdstomas_fazenda_sp_gov_br/IgBMaseL5l6eQKEzNq3ox5UGAYe44BNXOyZ3l5PLTkVFyCk?e=Wh3pqh" data-title="Repositório de Gravações" data-type="blocked-iframe">
+                <div class="system-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3>🎥 Repositório de Gravações</h3>
+                <p>Acesso às gravações de reuniões, treinamentos e eventos EGESP</p>
+                <span class="system-status status-repo">
+                    <i class="fas fa-external-link-alt"></i> Abrir em nova aba
+                </span>
+                <span class="badge-external">
+                    <i class="fas fa-sharepoint"></i> SharePoint
                 </span>
             </div>
             
@@ -445,7 +474,7 @@
         
         <div class="sidebar-footer">
             <i class="fas fa-code"></i> Desenvolvido por Gustavo Hugo<br>
-            <span style="font-size: 0.65rem;">Versão 2.1 - TV Corredor (abrir em nova aba) | Aceito Sugestões ❤️</span>
+            <span style="font-size: 0.65rem;">Versão 2.2 - Repositório de Gravações adicionado | Aceito Sugestões ❤️</span>
         </div>
     </div>
     
@@ -473,9 +502,6 @@
                 <p style="font-size: 0.85rem; color: #94a3b8;">
                     <i class="fas fa-info-circle"></i> Sistemas em desenvolvimento serão disponibilizados em breve
                 </p>
-                <p style="margin-top: 10px; font-size: 0.8rem; background: #f1f5f9; padding: 8px; border-radius: 12px;">
-                    <i class="fas fa-tv"></i> <strong>TV Corredor 17º Andar:</strong> Clique no item ao lado para abrir o Canva em nova aba!
-                </p>
             </div>
             <iframe id="systemFrame" src="about:blank" style="display: none;"></iframe>
         </div>
@@ -493,7 +519,7 @@
     const iframeWrapper = document.getElementById('iframeWrapper');
     const infoMessage = document.getElementById('infoMessage');
     
-    // Função para mostrar a mensagem de boas-vindas original
+    // Função para mostrar a mensagem de boas-vindas original (sem menção a TV ou repositório)
     function showWelcomeMessage() {
         infoMessage.style.display = 'flex';
         systemFrame.style.display = 'none';
@@ -507,17 +533,13 @@
             <p style="font-size: 0.85rem; color: #94a3b8;">
                 <i class="fas fa-info-circle"></i> Sistemas em desenvolvimento serão disponibilizados em breve
             </p>
-            <p style="margin-top: 10px; font-size: 0.8rem; background: #f1f5f9; padding: 8px; border-radius: 12px;">
-                <i class="fas fa-tv"></i> <strong>TV Corredor 17º Andar:</strong> Clique no item ao lado para abrir o Canva em nova aba!
-            </p>
         `;
     }
     
-    // Função para abrir link externo
+    // Função para abrir link externo (SSC Portal)
     function openExternalLink(url, title) {
         window.open(url, '_blank', 'noopener,noreferrer');
         
-        // Mostrar feedback temporário
         const tempMsg = document.createElement('div');
         tempMsg.className = 'info-message';
         tempMsg.style.position = 'fixed';
@@ -536,7 +558,6 @@
         document.body.appendChild(tempMsg);
         setTimeout(() => tempMsg.remove(), 3000);
         
-        // Manter a mensagem de boas-vindas visível
         showWelcomeMessage();
     }
     
@@ -569,27 +590,43 @@
         `;
     }
     
-    // Função para TV Corredor (explicar que não pode ser iframe e abrir em nova aba)
-    function showTvMessageAndOpen(url, title) {
+    // Função para sites que bloqueiam iframe (Canva, SharePoint, etc)
+    function showBlockedMessageAndOpen(url, title, type) {
         // Abrir em nova aba
         window.open(url, '_blank', 'noopener,noreferrer');
         
-        // Mostrar mensagem explicativa na área de conteúdo
+        let icon = 'fa-external-link-alt';
+        let iconColor = '#667eea';
+        let platformName = 'site';
+        let customMessage = '';
+        
+        if (type === 'tv') {
+            icon = 'fa-tv';
+            iconColor = '#ff9800';
+            platformName = 'Canva';
+            customMessage = 'O Canva não permite ser exibido dentro de uma página por questões de segurança (X-Frame-Options).';
+        } else if (type === 'repo') {
+            icon = 'fa-video';
+            iconColor = '#2ecc71';
+            platformName = 'SharePoint';
+            customMessage = 'O SharePoint da Microsoft não permite ser exibido dentro de iframes por questões de segurança.';
+        }
+        
         infoMessage.style.display = 'flex';
         systemFrame.style.display = 'none';
-        currentSystemTitle.innerHTML = `<i class="fas fa-tv"></i> ${title}`;
+        currentSystemTitle.innerHTML = `<i class="fas ${icon}"></i> ${title}`;
         
         infoMessage.innerHTML = `
-            <i class="fas fa-tv" style="color: #ff9800; font-size: 4rem;"></i>
-            <h3>📺 ${title}</h3>
-            <p>O Canva não permite ser exibido dentro de uma página (bloqueio de segurança por X-Frame-Options).</p>
-            <p style="background: #fff3e0; padding: 12px; border-radius: 10px;">
-                <i class="fas fa-info-circle"></i> O conteúdo foi aberto em uma <strong>nova aba do navegador</strong> para você editar a programação das TVs do corredor do 17º andar.
+            <i class="fas ${icon}" style="color: ${iconColor}; font-size: 4rem;"></i>
+            <h3>📁 ${title}</h3>
+            <p>${customMessage}</p>
+            <p style="background: #f0fdf4; padding: 12px; border-radius: 10px; margin: 10px 0;">
+                <i class="fas fa-info-circle"></i> O conteúdo foi aberto em uma <strong>nova aba do navegador</strong> para você acessar normalmente.
             </p>
             <button onclick="showWelcomeMessage()" class="btn-external btn-secondary">
                 Voltar para a Central
             </button>
-            <button onclick="window.open('${url}', '_blank')" class="btn-external" style="background: #ff9800;">
+            <button onclick="window.open('${url}', '_blank')" class="btn-external" style="background: ${iconColor};">
                 <i class="fas fa-external-link-alt"></i> Abrir novamente
             </button>
         `;
@@ -667,12 +704,18 @@
         }
         
         // Caso 3: TV Corredor (iframe bloqueado pelo Canva)
-        if (type === 'blocked-iframe' || title === 'TV Corredor - 17º Andar') {
-            showTvMessageAndOpen(url, title);
+        if (element.classList.contains('tv-hall') || title === 'TV Corredor - 17º Andar') {
+            showBlockedMessageAndOpen(url, title, 'tv');
             return;
         }
         
-        // Caso 4: Iframe normal (Inventário)
+        // Caso 4: Repositório de Gravações (iframe bloqueado pelo SharePoint)
+        if (element.classList.contains('repo') || title === 'Repositório de Gravações') {
+            showBlockedMessageAndOpen(url, title, 'repo');
+            return;
+        }
+        
+        // Caso 5: Iframe normal (Inventário)
         if (type === 'iframe' && url && url !== '#') {
             loadIframeSystem(url, title, element);
             return;
@@ -735,7 +778,7 @@
         }
     });
     
-    console.log('✅ Central EGESP carregada - TV Corredor abre em nova aba (Canva não permite iframe)');
+    console.log('✅ Central EGESP carregada - TV Corredor e Repositório de Gravações adicionados!');
 </script>
 </body>
 </html>
